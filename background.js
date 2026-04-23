@@ -9,7 +9,8 @@ chrome.runtime.onInstalled.addListener((details) => {
 chrome.downloads.onDeterminingFilename.addListener((item, suggest) => {
   if (
     item.referrer.includes('web.whatsapp.com') ||
-    item.url.includes('whatsapp.net')
+    item.url.includes('whatsapp.net') ||
+    item.url.includes('web.whatsapp.com')
   ) {
     suggest({
       filename: `WA_Media/${item.filename}`,

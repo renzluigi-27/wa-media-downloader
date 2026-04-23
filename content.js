@@ -43,24 +43,35 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   }
 
   // --- DOWNLOAD DOCS: click each button with delay ---
-  if (msg.action === 'clickDocs') {
-    const buttons = document.querySelectorAll('[data-testid="document-thumb"]');
-    let clicked = 0;
+if (msg.action === 'clickDocs') {
+  const allowed = msg.allowedExt || []; // e.g. ['pdf', 'docx']
+  const allButtons = document.querySelectorAll('[data-testid="document-thumb"]');
 
-    buttons.forEach((btn, i) => {
-      setTimeout(() => {
-        btn.click();
-        clicked++;
-        chrome.runtime.sendMessage({
-          action: 'docProgress',
-          completed: clicked,
-          total: buttons.length
-        });
-      }, i * 1500); // 1.5s between each click
-    });
+  // Filter buttons by allowed extensions
+  const buttons = Array.from(allButtons).filter(btn => {
+    const title = btn.getAttribute('title') || '';
+    const match = title.match(/Download "(.+?)"/);
+    if (!match) return false;
+    const ext = match[1].split('.').pop().toLowerCase();
+    return allowed.length === 0 || allowed.includes(ext);
+  });
 
-    sendResponse({ started: true, total: buttons.length });
-  }
+  let clicked = 0;
+
+  buttons.forEach((btn, i) => {
+    setTimeout(() => {
+      btn.click();
+      clicked++;
+      chrome.runtime.sendMessage({
+        action: 'docProgress',
+        completed: clicked,
+        total: buttons.length
+      });
+    }, i * 1500);
+  });
+
+  sendResponse({ started: true, total: buttons.length });
+}
 
   return true;
 });
