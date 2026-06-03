@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     // Docs — via document-thumb buttons
     document.querySelectorAll('[data-testid="document-thumb"]').forEach(btn => {
       const title = btn.getAttribute('title') || '';
-      const match = title.match(/Download "(.+?)"/);
+      const match = title.match(/"(.+?)"/);
       const filename = match ? match[1] : 'unknown_file';
       results.docs.push({ filename, element: null }); // element not serializable
     });
@@ -50,7 +50,7 @@ if (msg.action === 'clickDocs') {
   // Filter buttons by allowed extensions
   const buttons = Array.from(allButtons).filter(btn => {
     const title = btn.getAttribute('title') || '';
-    const match = title.match(/Download "(.+?)"/);
+    const match = title.match(/"(.+?)"/);
     if (!match) return false;
     const ext = match[1].split('.').pop().toLowerCase();
     return allowed.length === 0 || allowed.includes(ext);
