@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WA Media Downloader</title>
+  <link rel="stylesheet" href="ui.css" />
+</head>
+<body>
+  <div class="glass-card">
+    <div class="header">
+      <span class="logo">📥</span>
+      <div>
+        <h1>Media Downloader</h1>
+        <p class="sub">WhatsApp Web</p>
+      </div>
+    </div>
+
+    <div class="tip">
+      💡 Scroll up in the chat first to load older media.
+    </div>
+
+    <div class="stats" id="stats">
+      <div class="stat-box">
+        <span id="count">—</span>
+        <label>Found</label>
+      </div>
+      <div class="stat-box">
+        <span id="done">—</span>
+        <label>Downloaded</label>
+      </div>
+    </div>
+
+    <!-- Filter toggles — hidden until scan -->
+    <div class="filters" id="filters" style="display:none;">
+      <button class="filter-btn inactive" id="filter-docs" data-type="docs">📄 Docs <span id="fdocs">0</span></button>
+      <button class="filter-btn inactive" id="filter-images" data-type="images">🖼️ Images <span id="fimages">0</span></button>
+      <button class="filter-btn inactive" id="filter-videos" data-type="videos">🎥 Video <span id="fvideos">0</span></button>
+      <button class="filter-btn inactive" id="filter-audio" data-type="audio">🎵 Audio <span id="faudio">0</span></button>
+    </div>
+
+    <p class="progress-label" id="progress-label" style="display:none;"></p>
+    <div class="progress-bar" id="progress-wrap">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <p class="status-text" id="status">Ready</p>
+
+    <button class="btn" id="scanBtn">Scan</button>
+    <button class="btn btn-download" id="downloadBtn" style="display:none;">Download Selected</button>
+    <button class="btn btn-cancel" id="cancelBtn" style="display:none;">✕ Cancel</button>
+
+    <div class="footer">
+      <p>Free forever · <a href="https://ko-fi.com/renzluigi" target="_blank">Support on Ko-fi ☕</a></p>
+      <p>If it saved you time, a small coffee means the world. 🙏</p>
+    </div>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
